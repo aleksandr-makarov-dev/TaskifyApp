@@ -16,10 +16,10 @@ export type ItemResponse = {
 export type GetItemsQueryParams = {};
 
 export const createItemInputSchema = z.object({
-  name: z.string(),
+  name: z.string().min(5),
   description: z.string().optional(),
-  priority: z.coerce.number(),
-  DueDateOnUtc: z.coerce.date(),
+  priority: z.string(),
+  dueDateOnUtc: z.string(),
 });
 
 export type CreateItemRequest = z.infer<typeof createItemInputSchema>;

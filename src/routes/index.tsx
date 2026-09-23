@@ -5,7 +5,10 @@ import {
 } from "../features/items/hooks/queries";
 import { formatDate } from "../common/lib/format-date";
 import { formatPriority } from "../common/lib/format-priority";
-import type { CreateItemRequest } from "../features/items/types";
+import {
+  createItemInputSchema,
+  type CreateItemRequest,
+} from "../features/items/types";
 import { useCreateItemMutation } from "../features/items/hooks/mutations";
 import { useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -21,7 +24,7 @@ import Checkbox from "@/common/components/checkbox";
 import { Menu } from "@base-ui/react/menu";
 import Input from "@/common/components/input";
 import Button from "@/common/components/button";
-import Select from "@/common/components/select";
+import Select, { type SelectItem } from "@/common/components/select";
 import {
   Dialog,
   DialogClose,
@@ -33,12 +36,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/common/components/dialog";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Field } from "@/common/components/field";
+import Textarea from "@/common/components/text-area";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 const menuHandle = Menu.createHandle();
+
+const priorityItems: SelectItem<string>[] = [
+  { label: "Low", value: "1" },
+  { label: "Medium", value: "2" },
+  { label: "High", value: "3" },
+  { label: "Critical", value: "4" },
+];
 
 function Index() {
   const queryClient = useQueryClient();
@@ -50,12 +64,22 @@ function Index() {
       }),
   });
 
+  const form = useForm<CreateItemRequest>({
+    resolver: zodResolver(createItemInputSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      priority: "1",
+      dueDateOnUtc: dayjs().toDate().toDateString(),
+    },
+  });
+
   const handleClick = () => {
     const item = {
       name: "Test name " + Math.random(),
       description: "Test description",
-      priority: 1,
-      DueDateOnUtc: dayjs().add(30, "minute").toDate(),
+      priority: "1",
+      dueDateOnUtc: dayjs().add(30, "minute").toDate().toDateString(),
     } satisfies CreateItemRequest;
 
     createItemMutation.mutate(item, {
@@ -68,34 +92,25 @@ function Index() {
     });
   };
 
+  const onFormSubmit = (data: CreateItemRequest) => {
+    console.log("FormData:", data);
+  };
+
   return (
     <div className="p-2">
       <h3>Welcome Home!</h3>
       <button onClick={handleClick}>Click me</button>
       <div className="space-y-2">
         <div className="flex flex-row gap-x-2">
-          <Input placeholder="Search" />
+          <Input className="w-64" placeholder="Search" />
           <Button>Export</Button>
           <Button variant="secondary">Secondary</Button>
-          <Select
-            placeholder="Priority"
-            items={[
-              { label: "Low", value: "1" },
-              { label: "Medium", value: "2" },
-              { label: "High", value: "3" },
-              { label: "Critical", value: "4" },
-            ]}
-          />
+          <Select placeholder="Priority" items={priorityItems} />
           <Select
             className="max-w-40 w-full"
             multiple
             placeholder="Priority"
-            items={[
-              { label: "Low", value: "1" },
-              { label: "Medium", value: "2" },
-              { label: "High", value: "3" },
-              { label: "Critical", value: "4" },
-            ]}
+            items={priorityItems}
           />
           <Dialog>
             <DialogTrigger>
@@ -108,6 +123,44 @@ function Index() {
                   <DialogDescription>Create a new task.</DialogDescription>
                 </div>
               </DialogHeader>
+              <DialogContent>
+                <form
+                  id="create-task-form"
+                  className="space-y-2"
+                  onSubmit={form.handleSubmit(onFormSubmit)}
+                >
+                  <Field
+                    control={form.control}
+                    name="name"
+                    label="Name"
+                    render={({ field }) => (
+                      <Input className="w-full" {...field} />
+                    )}
+                  />
+                  <Field
+                    control={form.control}
+                    name="description"
+                    label="Description"
+                    render={({ field }) => (
+                      <Textarea className="w-full" rows={16} {...field} />
+                    )}
+                  />
+                  <Field
+                    control={form.control}
+                    name="priority"
+                    label="Priority"
+                    render={({ field }) => (
+                      <Select
+                        className="w-full"
+                        placeholder="Priority"
+                        items={priorityItems}
+                        value={field.value}
+                        onValueChange={(value) => field.onChange(value)}
+                      />
+                    )}
+                  />
+                </form>
+              </DialogContent>
               <DialogFooter>
                 <Button type="submit" form="create-task-form">
                   Submit
@@ -121,17 +174,19 @@ function Index() {
         </div>
         <Table>
           <TableHead>
-            <TableHeaderCell>
-              <Checkbox />
-            </TableHeaderCell>
-            <TableHeaderCell>Name</TableHeaderCell>
-            <TableHeaderCell>Priority</TableHeaderCell>
-            <TableHeaderCell>Due date</TableHeaderCell>
-            <TableHeaderCell>Is complete</TableHeaderCell>
-            <TableHeaderCell>Completed at</TableHeaderCell>
-            <TableHeaderCell>Is expired</TableHeaderCell>
-            <TableHeaderCell>Expired at</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
+            <TableRow>
+              <TableHeaderCell>
+                <Checkbox />
+              </TableHeaderCell>
+              <TableHeaderCell>Name</TableHeaderCell>
+              <TableHeaderCell>Priority</TableHeaderCell>
+              <TableHeaderCell>Due date</TableHeaderCell>
+              <TableHeaderCell>Is complete</TableHeaderCell>
+              <TableHeaderCell>Completed at</TableHeaderCell>
+              <TableHeaderCell>Is expired</TableHeaderCell>
+              <TableHeaderCell>Expired at</TableHeaderCell>
+              <TableHeaderCell></TableHeaderCell>
+            </TableRow>
           </TableHead>
           <TableBody>
             {getItemsQuery.data?.map((item) => (
