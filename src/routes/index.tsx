@@ -9,10 +9,24 @@ import type { CreateItemRequest } from "../features/items/types";
 import { useCreateItemMutation } from "../features/items/hooks/mutations";
 import { useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "@/common/components/table";
+import Checkbox from "@/common/components/checkbox";
+import { Menu } from "@base-ui/react/menu";
+import Input from "@/common/components/input";
+import Button from "@/common/components/button";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
+
+const demoMenu = Menu.createHandle();
 
 function Index() {
   const queryClient = useQueryClient();
@@ -46,60 +60,80 @@ function Index() {
     <div className="p-2">
       <h3>Welcome Home!</h3>
       <button onClick={handleClick}>Click me</button>
-      <table className="border-collapse">
-        <thead>
-          <tr className="bg-neutral-100">
-            <th className="px-2 py-1 border-neutral-300 border font-medium">
-              Name
-            </th>
-            <th className="px-2 py-1 border-neutral-300 border font-medium">
-              Priority
-            </th>
-            <th className="px-2 py-1 border-neutral-300 border font-medium">
-              Due Date
-            </th>
-            <th className="px-2 py-1 border-neutral-300 border font-medium">
-              Completed
-            </th>
-            <th className="px-2 py-1 border-neutral-300 border font-medium">
-              Completion Date
-            </th>
-            <th className="px-2 py-1 border-neutral-300 border font-medium">
-              Overdue
-            </th>
-            <th className="px-2 py-1 border-neutral-300 border font-medium">
-              Overdue Date
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {getItemsQuery.data?.map((item) => (
-            <tr key={item.id}>
-              <td className="px-2 py-1 border-neutral-300 border">
-                {item.name}
-              </td>
-              <td className="px-2 py-1 border-neutral-300 border">
-                {formatPriority(item.priority)}
-              </td>
-              <td className="px-2 py-1 border-neutral-300 border">
-                {item.dueDateOnUtc && formatDate(item.dueDateOnUtc)}
-              </td>
-              <td className="px-2 py-1 border-neutral-300 border">
-                {item.isComplete ? "Yes" : "No"}
-              </td>
-              <td className="px-2 py-1 border-neutral-300 border">
-                {item.completedAtUtc && formatDate(item.completedAtUtc)}
-              </td>
-              <td className="px-2 py-1 border-neutral-300 border">
-                {item.isExpired ? "Yes" : "No"}
-              </td>
-              <td className="px-2 py-1 border-neutral-300 border">
-                {item.expiredAtUtc && formatDate(item.expiredAtUtc)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="space-y-2">
+        <div className="flex flex-row gap-x-2">
+          <Input placeholder="Search" />
+          <Button>Export</Button>
+          <Button variant="secondary">Secondary</Button>
+        </div>
+        <Table>
+          <TableHead>
+            <TableHeaderCell>
+              <Checkbox />
+            </TableHeaderCell>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Priority</TableHeaderCell>
+            <TableHeaderCell>Due date</TableHeaderCell>
+            <TableHeaderCell>Is complete</TableHeaderCell>
+            <TableHeaderCell>Completed at</TableHeaderCell>
+            <TableHeaderCell>Is expired</TableHeaderCell>
+            <TableHeaderCell>Expired at</TableHeaderCell>
+            <TableHeaderCell></TableHeaderCell>
+          </TableHead>
+          <TableBody>
+            {getItemsQuery.data?.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>
+                  <Checkbox />
+                </TableCell>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>{formatPriority(item.priority)}</TableCell>
+                <TableCell>
+                  {item.dueDateOnUtc && formatDate(item.dueDateOnUtc)}
+                </TableCell>
+                <TableCell className="text-center">
+                  {item.isComplete ? "Yes" : "No"}
+                </TableCell>
+                <TableCell>
+                  {item.completedAtUtc && formatDate(item.completedAtUtc)}
+                </TableCell>
+                <TableCell className="text-center">
+                  {item.isExpired ? "Yes" : "No"}
+                </TableCell>
+                <TableCell>
+                  {item.expiredAtUtc && formatDate(item.expiredAtUtc)}
+                </TableCell>
+                <TableCell className="px-2">
+                  <Menu.Trigger
+                    handle={demoMenu}
+                    aria-label="Project actions"
+                    className="flex size-6 items-center justify-center rounded-none text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-pressed:bg-neutral-100 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 dark:data-pressed:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+                  >
+                    <EllipsisHorizontalIcon />
+                  </Menu.Trigger>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
+  );
+}
+
+function EllipsisHorizontalIcon(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      {...props}
+      style={{ display: "block", ...props.style }}
+    >
+      <circle cx="3" cy="8" r="1" />
+      <circle cx="8" cy="8" r="1" />
+      <circle cx="13" cy="8" r="1" />
+    </svg>
   );
 }
