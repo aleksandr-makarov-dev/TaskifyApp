@@ -21,6 +21,7 @@ import Checkbox from "@/common/components/checkbox";
 import { Menu } from "@base-ui/react/menu";
 import Input from "@/common/components/input";
 import Button from "@/common/components/button";
+import Select from "@/common/components/select";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -65,6 +66,26 @@ function Index() {
           <Input placeholder="Search" />
           <Button>Export</Button>
           <Button variant="secondary">Secondary</Button>
+          <Select
+            placeholder="Priority"
+            items={[
+              { label: "Low", value: "1" },
+              { label: "Medium", value: "2" },
+              { label: "High", value: "3" },
+              { label: "Critical", value: "4" },
+            ]}
+          />
+          <Select
+            className="max-w-40 w-full"
+            multiple
+            placeholder="Priority"
+            items={[
+              { label: "Low", value: "1" },
+              { label: "Medium", value: "2" },
+              { label: "High", value: "3" },
+              { label: "Critical", value: "4" },
+            ]}
+          />
         </div>
         <Table>
           <TableHead>
