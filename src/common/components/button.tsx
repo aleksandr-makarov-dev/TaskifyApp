@@ -11,7 +11,7 @@ const buttonVariants = cva(
         primary:
           "border-sky-600 bg-sky-600 text-white hover:not-data-disabled:border-sky-700 hover:not-data-disabled:bg-sky-700 active:not-data-disabled:border-sky-800 active:not-data-disabled:bg-sky-800 dark:border-sky-500 dark:bg-sky-500 dark:hover:not-data-disabled:border-sky-400 dark:hover:not-data-disabled:bg-sky-400",
         secondary:
-          "border-neutral-600 bg-white text-neutral-700 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-neutral-400 dark:bg-neutral-950 dark:text-neutral-300 dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700",
+          "border-neutral-600 bg-white text-neutral-700 hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 dark:border-neutral-500 dark:bg-neutral-950 dark:text-neutral-300 dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700",
       },
     },
     defaultVariants: {

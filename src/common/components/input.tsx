@@ -9,7 +9,7 @@ export default function Input({
   return (
     <BaseInput
       className={cn(
-        "h-7 w-auto border border-neutral-400 px-1.5 text-sm font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-1 focus:-outline-offset-1 focus:outline-sky-600 any-pointer-coarse:text-base dark:border-white dark:bg-neutral-950 dark:text-white dark:placeholder:text-neutral-400 dark:focus:outline-white",
+        "h-7 w-auto border border-neutral-500 px-1.5 text-sm font-normal text-neutral-950 placeholder:text-neutral-500 focus:outline-1 focus:-outline-offset-1 focus:outline-sky-600 any-pointer-coarse:text-base dark:border-white dark:bg-neutral-950 dark:text-white dark:placeholder:text-neutral-400 dark:focus:outline-white",
         className,
       )}
       {...props}

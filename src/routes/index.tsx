@@ -22,12 +22,23 @@ import { Menu } from "@base-ui/react/menu";
 import Input from "@/common/components/input";
 import Button from "@/common/components/button";
 import Select from "@/common/components/select";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogPopup,
+  DialogTitle,
+  DialogTrigger,
+} from "@/common/components/dialog";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const demoMenu = Menu.createHandle();
+const menuHandle = Menu.createHandle();
 
 function Index() {
   const queryClient = useQueryClient();
@@ -86,6 +97,27 @@ function Index() {
               { label: "Critical", value: "4" },
             ]}
           />
+          <Dialog>
+            <DialogTrigger>
+              <Button variant="secondary">Create task</Button>
+            </DialogTrigger>
+            <DialogPopup>
+              <DialogHeader>
+                <div className="min-w-0 flex-1">
+                  <DialogTitle>Create new task</DialogTitle>
+                  <DialogDescription>Create a new task.</DialogDescription>
+                </div>
+              </DialogHeader>
+              <DialogFooter>
+                <Button type="submit" form="create-task-form">
+                  Submit
+                </Button>
+                <DialogClose>
+                  <Button variant="secondary">Cancel</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogPopup>
+          </Dialog>
         </div>
         <Table>
           <TableHead>
@@ -126,9 +158,9 @@ function Index() {
                 </TableCell>
                 <TableCell className="px-2">
                   <Menu.Trigger
-                    handle={demoMenu}
+                    handle={menuHandle}
                     aria-label="Project actions"
-                    className="flex size-6 items-center justify-center rounded-none text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-pressed:bg-neutral-100 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 dark:data-pressed:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
+                    className="flex size-6 items-center justify-center rounded-none text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-pressed:bg-neutral-100 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-500 dark:data-disabled:text-neutral-400 dark:data-pressed:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                   >
                     <EllipsisHorizontalIcon />
                   </Menu.Trigger>

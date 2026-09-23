@@ -10,7 +10,7 @@ export default function Checkbox({
     <BaseCheckbox.Root
       defaultChecked
       className={cn(
-        "flex size-4 shrink-0 items-center justify-center rounded-none border border-neutral-400 bg-white p-0 text-white data-checked:border-sky-600 data-checked:bg-sky-600 data-checked:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:border-white dark:bg-sky-600 dark:text-sky-600 dark:data-checked:bg-white dark:data-checked:text-sky-600 dark:focus-visible:outline-white",
+        "flex size-4 shrink-0 items-center justify-center rounded-none border border-neutral-500 bg-white p-0 text-white data-checked:border-sky-600 data-checked:bg-sky-600 data-checked:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:border-white dark:bg-sky-600 dark:text-sky-600 dark:data-checked:bg-white dark:data-checked:text-sky-600 dark:focus-visible:outline-white",
         className,
       )}
       {...props}
