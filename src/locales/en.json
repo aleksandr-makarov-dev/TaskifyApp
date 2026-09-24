@@ -16,5 +16,22 @@
     "description": "Enter the details for the new item.",
     "submit": "Create",
     "close": "Cancel"
+  },
+  "itemActions": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "deleteItemDialog": {
+    "title": "Delete item?",
+    "description": "Are you sure you want to delete this item?",
+    "confirm": "Delete",
+    "cancel": "Cancel",
+    "error": "Could not delete the item. Please try again."
+  },
+  "updateItemDialog": {
+    "title": "Edit item",
+    "description": "Update the item details.",
+    "submit": "Save",
+    "close": "Cancel"
   }
 }

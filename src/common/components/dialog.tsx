@@ -2,7 +2,9 @@ import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import type { ComponentProps, ReactElement } from "react";
 import { cn } from "../lib/cn";
 
-export function Dialog(props: ComponentProps<typeof BaseDialog.Root>) {
+export function Dialog<Payload>(
+  props: ComponentProps<typeof BaseDialog.Root<Payload>>,
+) {
   return <BaseDialog.Root disablePointerDismissal {...props} />;
 }
 

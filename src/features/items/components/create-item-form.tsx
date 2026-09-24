@@ -7,6 +7,7 @@ import Input from "@/common/components/input";
 import Textarea from "@/common/components/text-area";
 import type { SelectItem } from "@/common/components/select";
 import Select from "@/common/components/select";
+import dayjs from "dayjs";
 
 type CreateItemFormProps = {
   formId: string;
@@ -43,36 +44,23 @@ export function CreateItemForm({
         control={form.control}
         name="name"
         label={t("createForm.name")}
-        render={({ field, fieldState }) => (
-          <Input
-            className="w-full"
-            aria-invalid={fieldState.invalid}
-            {...field}
-          />
-        )}
+        render={({ field }) => <Input className="w-full" {...field} />}
       />
 
       <Field
         control={form.control}
         name="description"
         label={t("createForm.description")}
-        render={({ field, fieldState }) => (
-          <Textarea
-            className="w-full"
-            aria-invalid={fieldState.invalid}
-            {...field}
-          />
-        )}
+        render={({ field }) => <Textarea className="w-full" {...field} />}
       />
 
       <Field
         control={form.control}
         name="priority"
         label={t("createForm.priority")}
-        render={({ field, fieldState }) => (
+        render={({ field }) => (
           <Select
             className="w-full"
-            aria-invalid={fieldState.invalid}
             items={priorityItems}
             value={field.value.toString()}
             disabled={field.disabled}
@@ -85,12 +73,13 @@ export function CreateItemForm({
         control={form.control}
         name="dueDateOnUtc"
         label={t("createForm.dueDate")}
-        render={({ field, fieldState }) => (
+        render={({ field }) => (
           <Input
             className="w-full"
             type="datetime-local"
-            aria-invalid={fieldState.invalid}
-            {...field}
+            disabled={field.disabled}
+            value={field.value?.toDateString()}
+            onChange={(e) => field.onChange(dayjs(e.target.value).toDate())}
           />
         )}
       />
