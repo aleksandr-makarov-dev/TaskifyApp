@@ -102,3 +102,6 @@ type DialogCloseProps = Omit<
 export function DialogClose({ children, ...props }: DialogCloseProps) {
   return <BaseDialog.Close render={children} {...props} />;
 }
+
+export const createDialogHandle = BaseDialog.createHandle;
+export type DialogHandle<Payload = unknown> = BaseDialog.Handle<Payload>;

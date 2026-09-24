@@ -38,7 +38,8 @@ export default function Select<
           className="min-w-0 flex-1 truncate text-left data-placeholder:text-neutral-500 dark:data-placeholder:text-neutral-400"
           placeholder={placeholder}
         />
-        <BaseSelect.Icon>
+
+        <BaseSelect.Icon className="shrink-0">
           <CaretUpDownIcon />
         </BaseSelect.Icon>
       </BaseSelect.Trigger>
@@ -50,10 +51,11 @@ export default function Select<
           alignItemWithTrigger={false}
         >
           <BaseSelect.Popup className="min-w-(--anchor-width) border border-neutral-500 bg-white text-neutral-950 outline-hidden dark:border-white dark:bg-neutral-950 dark:text-white">
-            <BaseSelect.ScrollUpArrow className="top-0 z-1 flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute data-[side=none]:before:-top-full before:left-0 before:h-full before:w-full before:content-[''] dark:bg-neutral-950">
+            <BaseSelect.ScrollUpArrow className="top-px right-px left-px z-1 flex h-4 cursor-default items-center justify-center bg-white text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] data-[side=none]:before:-top-full dark:bg-neutral-950">
               <CaretUpIcon />
             </BaseSelect.ScrollUpArrow>
-            <BaseSelect.List className="relative max-h-(--available-height) overflow-y-auto py-1">
+
+            <BaseSelect.List className="relative max-h-60 overflow-y-auto py-1">
               {items.map(({ label, value }) => (
                 <BaseSelect.Item
                   key={value}
@@ -72,7 +74,8 @@ export default function Select<
                 </BaseSelect.Item>
               ))}
             </BaseSelect.List>
-            <BaseSelect.ScrollDownArrow className="bottom-0 z-1 flex h-4 w-full cursor-default items-center justify-center bg-white text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] data-[side=none]:before:-bottom-full dark:bg-neutral-950">
+
+            <BaseSelect.ScrollDownArrow className="right-px bottom-px left-px z-1 flex h-4 cursor-default items-center justify-center bg-white text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] data-[side=none]:before:-bottom-full dark:bg-neutral-950">
               <CaretDownIcon />
             </BaseSelect.ScrollDownArrow>
           </BaseSelect.Popup>

@@ -21,7 +21,7 @@ import {
   TableRow,
 } from "@/common/components/table";
 import Checkbox from "@/common/components/checkbox";
-import { Menu } from "@base-ui/react/menu";
+import { Menu as BaseMenu } from "@base-ui/react/menu";
 import Input from "@/common/components/input";
 import Button from "@/common/components/button";
 import Select, { type SelectItem } from "@/common/components/select";
@@ -40,18 +40,69 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Field } from "@/common/components/field";
 import Textarea from "@/common/components/text-area";
+import {
+  createMenuHandle,
+  Menu,
+  MenuButton,
+  MenuContent,
+  MenuItem,
+  MenuTrigger,
+} from "@/common/components/menu";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const menuHandle = Menu.createHandle();
+const menuHandle = createMenuHandle();
 
 const priorityItems: SelectItem<string>[] = [
   { label: "Low", value: "1" },
   { label: "Medium", value: "2" },
   { label: "High", value: "3" },
   { label: "Critical", value: "4" },
+];
+
+const items2: SelectItem<string>[] = [
+  { label: "Low", value: "1" },
+  { label: "Medium", value: "2" },
+  { label: "High", value: "3" },
+  { label: "Critical", value: "4" },
+  { label: "Low", value: "5" },
+  { label: "Medium", value: "6" },
+  { label: "High", value: "7" },
+  { label: "Critical", value: "8" },
+  { label: "Low", value: "9" },
+  { label: "Medium", value: "10" },
+  { label: "High", value: "11" },
+  { label: "Critical", value: "12" },
+  { label: "Low", value: "13" },
+  { label: "Medium", value: "14" },
+  { label: "High", value: "15" },
+  { label: "Critical", value: "16" },
+  { label: "Low", value: "17" },
+  { label: "Medium", value: "18" },
+  { label: "High", value: "19" },
+  { label: "Critical", value: "20" },
+  { label: "Low", value: "1" },
+  { label: "Medium", value: "2" },
+  { label: "High", value: "3" },
+  { label: "Critical", value: "4" },
+  { label: "Low", value: "5" },
+  { label: "Medium", value: "6" },
+  { label: "High", value: "7" },
+  { label: "Critical", value: "8" },
+  { label: "Low", value: "9" },
+  { label: "Medium", value: "10" },
+  { label: "High", value: "11" },
+  { label: "Critical", value: "12" },
+  { label: "Low", value: "13" },
+  { label: "Medium", value: "14" },
+  { label: "High", value: "15" },
+  { label: "Critical", value: "16" },
+  { label: "Low", value: "17" },
+  { label: "Medium", value: "18" },
+  { label: "High", value: "19" },
+  { label: "Critical", value: "20" },
 ];
 
 function Index() {
@@ -112,6 +163,7 @@ function Index() {
             placeholder="Priority"
             items={priorityItems}
           />
+          <Select className="max-w-40 w-full" items={items2} />
           <Dialog>
             <DialogTrigger>
               <Button variant="secondary">Create task</Button>
@@ -212,18 +264,23 @@ function Index() {
                   {item.expiredAtUtc && formatDate(item.expiredAtUtc)}
                 </TableCell>
                 <TableCell className="px-2">
-                  <Menu.Trigger
+                  <MenuTrigger
+                    className="size-6 border-none p-0"
                     handle={menuHandle}
-                    aria-label="Project actions"
-                    className="flex size-6 items-center justify-center rounded-none text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 active:not-data-disabled:bg-neutral-200 data-pressed:bg-neutral-100 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:active:not-data-disabled:bg-neutral-700 data-disabled:border-neutral-500 data-disabled:text-neutral-500 disabled:border-neutral-500 disabled:text-neutral-500 dark:data-disabled:border-neutral-500 dark:data-disabled:text-neutral-400 dark:data-pressed:bg-neutral-800 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 dark:focus-visible:outline-white"
                   >
-                    <EllipsisHorizontalIcon />
-                  </Menu.Trigger>
+                    <MenuButton variant="secondary" />
+                  </MenuTrigger>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        <Menu handle={menuHandle}>
+          <MenuContent>
+            <MenuItem>Edit</MenuItem>
+            <MenuItem>Delete</MenuItem>
+          </MenuContent>
+        </Menu>
       </div>
     </div>
   );
