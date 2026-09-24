@@ -1,0 +1,20 @@
+{
+  "createForm": {
+    "name": "Name",
+    "description": "Description",
+    "priority": "Priority",
+    "dueDate": "Due date"
+  },
+  "priority": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "critical": "Critical"
+  },
+  "createItemDialog": {
+    "title": "Create item",
+    "description": "Enter the details for the new item.",
+    "submit": "Create",
+    "close": "Cancel"
+  }
+}

@@ -8,7 +8,7 @@ type UseGetItemsOptions = {
   query?: GetItemsQueryParams;
 } & QueryConfig<typeof getItemsQueryOptions>;
 
-export const getItemsQueryOptions = (query: GetItemsQueryParams) => {
+export const getItemsQueryOptions = (query: GetItemsQueryParams = {}) => {
   return queryOptions<ItemResponse[], ProblemDetails>({
     queryKey: ["items"],
     queryFn: () => getItemsAsync(query),

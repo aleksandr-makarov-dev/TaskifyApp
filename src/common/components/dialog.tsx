@@ -41,7 +41,7 @@ export function DialogPopup({
 export function DialogHeader({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
-      className={cn("flex items-start gap-2 p-3 pb-1.5", className)}
+      className={cn("flex flex-col items-start gap-1 p-3 pb-1.5", className)}
       {...props}
     />
   );

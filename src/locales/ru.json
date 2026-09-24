@@ -1,0 +1,20 @@
+{
+  "createForm": {
+    "name": "Название",
+    "description": "Описание",
+    "priority": "Приоритет",
+    "dueDate": "Срок выполнения"
+  },
+  "priority": {
+    "low": "Низкий",
+    "medium": "Средний",
+    "high": "Высокий",
+    "critical": "Критический"
+  },
+  "createItemDialog": {
+    "title": "Создать элемент",
+    "description": "Укажите данные нового элемента.",
+    "submit": "Создать",
+    "close": "Отмена"
+  }
+}
