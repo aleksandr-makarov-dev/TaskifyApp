@@ -57,9 +57,9 @@ export function CreateItemDialog({ handle }: CreateItemDialogProps) {
             formId={formId}
             defaultValues={{
               name: "",
-              description: "",
-              priority: "",
-              dueDateOnUtc: "",
+              description: undefined,
+              priority: 1,
+              dueDateOnUtc: undefined,
             }}
             onSubmit={handleSubmit}
           />

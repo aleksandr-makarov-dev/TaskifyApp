@@ -8,13 +8,15 @@ import type {
 export async function getItemsAsync(
   params: GetItemsQueryParams,
 ): Promise<ItemResponse[]> {
-  // return apiClient.get("/items", { params });
-  return Promise.resolve(items);
+  return apiClient.get("/items", { params });
+  // return Promise.resolve(items);
 }
 
 export async function createItemAsync(
   request: CreateItemRequest,
 ): Promise<ItemResponse> {
+  console.log(request);
+
   return apiClient.post("/items", request);
 }
 

@@ -22,7 +22,7 @@ export function CreateItemForm({
   const { t } = useTranslation();
 
   const form = useForm<CreateItemRequest>({
-    resolver: zodResolver(createItemInputSchema),
+    resolver: zodResolver(createItemInputSchema as any),
     defaultValues,
   });
 
@@ -74,7 +74,7 @@ export function CreateItemForm({
             className="w-full"
             aria-invalid={fieldState.invalid}
             items={priorityItems}
-            value={field.value}
+            value={field.value.toString()}
             disabled={field.disabled}
             onValueChange={field.onChange}
           />

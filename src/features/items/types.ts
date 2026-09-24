@@ -18,8 +18,8 @@ export type GetItemsQueryParams = {};
 export const createItemInputSchema = z.object({
   name: z.string().min(5),
   description: z.string().optional(),
-  priority: z.string(),
-  dueDateOnUtc: z.string(),
+  priority: z.coerce.number(),
+  dueDateOnUtc: z.coerce.date().optional(),
 });
 
 export type CreateItemRequest = z.infer<typeof createItemInputSchema>;
